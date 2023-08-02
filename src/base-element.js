@@ -1,34 +1,40 @@
 export default class BaseElement extends HTMLElement {
+  attrs = [];
+  props = {};
   css = "";
 
   connectedCallback() {
     console.debug("connected");
-    this.attachShadow({ mode: "open" });
-    if (!this.rendered) {
-      this.#update();
-    }
+    this.attrs.forEach((attr) => this.setProp(attr, this.getAttribute(attr)));
+    this.update();
   }
 
   disconnectedCallback() {
     console.debug("disconnected");
-    this.__unsubscribe && this.__unsubscribe();
   }
 
-  attributeChangedCallback(name, _oldValue, _newValue) {
+  attributeChangedCallback(name, _, value) {
     console.debug("attr changed:", name);
-    this.#update();
+    this.setProp(name, value);
+    this.update();
   }
 
-  connect(store) {
-    this.__unsubscribe = store.subscribe(() => this.mapState(store.getState()));
-    this.mapState(store.getState());
+  static get observedAttributes() {
+    return this.attrs;
   }
 
-  mapState(state) { }
+  setProp(name, value) {
+    console.debug("set prop:", name);
+    this.props[name] = value;
+    if (this.attrs.includes(name) && this.getAttribute(name) !== value) {
+      this.setAttribute(name, value);
+    }
+  }
 
-  #update() {
+  update() {
     console.debug("render");
-    this.shadowRoot &&
-      (this.shadowRoot.innerHTML = `<style>${this.css}</style>${this.render()}`);
+    let innerHTML = this.css.length ? `<style>${this.css}</style>` : "";
+    innerHTML += this.render();
+    this.innerHTML = innerHTML;
   }
 }

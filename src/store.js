@@ -1,4 +1,4 @@
-export default function createStore(initState) {
+export function createStore(initState) {
   let state = initState;
   const listeners = new Set();
 
@@ -19,3 +19,10 @@ export default function createStore(initState) {
 
   return { setState, getState, subscribe };
 }
+
+const INIT_STATE = {
+  parent: null,
+  things: ["All", "The", "Things"],
+};
+
+export default createStore(INIT_STATE);
