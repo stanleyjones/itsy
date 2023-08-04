@@ -1,0 +1,13 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-fg: #eee;
+  --color-bg: #333;
+  --color-destructive: #633;
+
+  font: 18px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

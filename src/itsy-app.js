@@ -1,28 +1,31 @@
-import ContainerElement from "./container-element.js";
-import store from "/src/store.js";
+import BaseElement from "/lib/base-element.js";
 
 customElements.define(
   "itsy-app",
-  class extends ContainerElement {
-    attrs = ["parent"];
-    props = { things: [] };
-    css = `p { font-weight: bold}`;
-
-    constructor() {
-      super();
-      this.connect(store);
-      setTimeout(() => store.setState({ things: ["Yep"] }), 3000);
-    }
+  class extends BaseElement {
+    css = `
+      .itsy-app {
+        min-height: 100vh;
+        color: var(--color-fg);
+        background-color: var(--color-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .itsy-app > * {
+        width: 100%;
+        min-width: 280px;
+        max-width: 800px;
+      }
+    `;
 
     render() {
-      const { things, parent } = this.props;
       return `
-        <itsy-header></itsy-header>
-        <p>Hack the following things:</p>
-        <ul>
-          ${things.map((thing) => `<li>${thing}</li>`).join("")}
-        </ul>
-        <itsy-footer parent=${parent}></itsy-footer>
+        <main class="itsy-app">
+          <itsy-header></itsy-header>
+          <itsy-todos></itsy-todos>
+          <itsy-footer></itsy-footer>
+        </main>
       `;
     }
   }
