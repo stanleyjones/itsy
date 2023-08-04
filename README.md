@@ -15,7 +15,7 @@ modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) 
 code as needed. This approach is surprisngly well supported across all browsers.
 
 ```sh
-% ./scripts/start.sh
+ ./scripts/start.sh
 ```
 
 The hand-built libraries include two kinds of [Web
@@ -34,5 +34,5 @@ just the assertion library) are all local. It was equally surprising how simple 
 assertion library really is when you don't need syntax like `expect(x).to.deep.equal(y)`.
 
 ```sh
-% ./scripts/test.sh
+ ./scripts/test.sh
 ```
