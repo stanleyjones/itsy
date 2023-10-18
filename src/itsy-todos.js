@@ -4,7 +4,7 @@ import store from "/src/itsy-store.js";
 customElements.define(
   "itsy-todos",
   class extends ContainerElement {
-    props = { todos: [] };
+    attributes = ["todos"];
     css = `.itsy-todos { padding: 0; }`;
 
     constructor() {
@@ -13,7 +13,7 @@ customElements.define(
     }
 
     render() {
-      const { todos } = this.props;
+      const { todos } = this.attrs;
       return `
         <ul class="itsy-todos">
           ${todos

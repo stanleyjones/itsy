@@ -4,7 +4,7 @@ import { toggleTodo } from "/src/itsy-store.js";
 customElements.define(
   "itsy-todo",
   class extends BaseElement {
-    attrs = ["id", "name", "done"];
+    attributes = ["id", "name", "done"];
     css = `
       .itsy-todo {
         list-style: none;
@@ -35,14 +35,15 @@ customElements.define(
     `;
 
     events = {
-      change: (event) => toggleTodo(event, this.props.id),
+      change: (event) => toggleTodo(event, this.attrs.id),
     };
 
     render() {
-      const { name, done } = this.props;
+      console.log(this.attrs);
+      const { name, done } = this.attrs;
       return `
         <li class="itsy-todo">
-          <input type="checkbox" ${JSON.parse(done) ? "checked " : ""}/>
+          <input type="checkbox" ${done ? "checked " : ""}/>
           ${name}
         </li>
       `;
